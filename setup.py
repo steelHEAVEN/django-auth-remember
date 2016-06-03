@@ -5,8 +5,7 @@ from setuptools import setup, find_packages, Command
 
 
 install_requires = [
-    'Django >= 1.9.1',
-    'South >= 0.8.4',
+    'Django >= 1.7.8',
 ]
 
 
