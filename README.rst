@@ -4,7 +4,7 @@ Django auth remember app
 .. image:: https://travis-ci.org/ailabs/django-auth-remember.png?branch=master
    :target: https://travis-ci.org/ailabs/django-auth-remember
 
-``django-auth-remember`` supports `Django`_ 1.4.10 and later on Python 2.6 and 2.7.
+``django-auth-remember`` supports `Django`_ 1.7.8 on Python 2.7.
 
 .. _Django: http://www.djangoproject.com/
 
