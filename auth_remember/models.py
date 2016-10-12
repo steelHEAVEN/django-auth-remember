@@ -2,9 +2,11 @@
 from __future__ import unicode_literals
 from datetime import timedelta
 from django.utils.timezone import now as timezone_now
-
+from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.conf import settings as django_settings
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.text import force_text
 
 from auth_remember import settings
 from auth_remember.auth_utils import check_password
@@ -32,13 +34,22 @@ class RememberTokenManager(models.Manager):
         return self.filter(created_initial__lte=max_age).delete()
 
 
+@python_2_unicode_compatible
 class RememberToken(models.Model):
-    token_hash = models.CharField(max_length=60, blank=False, primary_key=True)
+    token_hash = models.CharField(_("Token Hash"), max_length=60, blank=False, primary_key=True)
 
-    created = models.DateTimeField(editable=False, default=timezone_now)
+    created = models.DateTimeField(_("Created"), editable=False, default=timezone_now)
 
-    created_initial = models.DateTimeField(editable=False, blank=False)
+    created_initial = models.DateTimeField(_("Created Initially"), editable=False, blank=False)
 
-    user = models.ForeignKey(django_settings.AUTH_USER_MODEL, related_name="remember_me_tokens")
+    user = models.ForeignKey(django_settings.AUTH_USER_MODEL, verbose_name=_("User"), related_name="remember_me_tokens")
 
     objects = RememberTokenManager()
+
+    class Meta:
+        verbose_name = _("Remember Token")
+        verbose_name_plural = _("Remember Tokens")
+        ordering = ("-created",)
+
+    def __str__(self):
+        return "{} - {:%Y-%m-%d %H:%M}".format(self.user, self.created)
