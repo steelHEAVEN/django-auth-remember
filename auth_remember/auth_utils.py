@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+from __future__ import unicode_literals
 """Taken from django-dev (should be standard in django 1.4)"""
 import hashlib
 from django.utils.encoding import smart_str

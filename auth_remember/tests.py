@@ -1,7 +1,9 @@
+# -*- coding: UTF-8 -*-
+from __future__ import unicode_literals
 import time
 
 from django.contrib import auth
-from django.contrib.auth.models import User, AnonymousUser
+from django.contrib.auth.models import AnonymousUser
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.http import HttpResponse
 from django.test import TestCase
@@ -10,6 +12,7 @@ from django.test.client import RequestFactory
 
 class TokenCreationTest(TestCase):
     def setUp(self):
+        User = auth.get_user_model()
         self.user = User(username='test_user')
         self.user.save()
 
@@ -17,7 +20,7 @@ class TokenCreationTest(TestCase):
         from auth_remember.utils import create_token_string
 
         value = create_token_string(self.user)
-        self.assertTrue(value.startswith('%d:' % self.user.id))
+        self.assertTrue(value.startswith('%s:' % self.user.id))
 
     def test_get_by_token_string(self):
         from auth_remember.models import RememberToken
@@ -44,6 +47,7 @@ class TokenCreationTest(TestCase):
 
 class AuthTest(TestCase):
     def setUp(self):
+        User = auth.get_user_model()
         self.user = User(username='test_user')
         self.user.set_password('secret')
         self.user.save()
@@ -131,7 +135,7 @@ class AuthTest(TestCase):
         self.assertTrue(RememberToken.objects.get_by_string(token_string))
 
     def test_middleware_set_remember_token(self):
-        from auth_remember import remember_user
+        from auth_remember.core import remember_user
         from auth_remember import settings
         from auth_remember.middleware import AuthRememberMiddleware
 

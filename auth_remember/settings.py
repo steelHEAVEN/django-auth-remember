@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+from __future__ import unicode_literals
 from django.conf import settings
 
 COOKIE_NAME = 'remember_token'

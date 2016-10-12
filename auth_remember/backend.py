@@ -1,4 +1,6 @@
-from django.contrib.auth.models import User
+# -*- coding: UTF-8 -*-
+from __future__ import unicode_literals
+from django.contrib.auth import get_user_model
 
 from auth_remember import utils
 from auth_remember.models import RememberToken
@@ -25,6 +27,7 @@ class AuthRememberBackend(object):
         return user
 
     def get_user(self, user_id):
+        User = get_user_model()
         try:
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:

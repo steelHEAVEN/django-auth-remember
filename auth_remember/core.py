@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+from __future__ import unicode_literals
 from auth_remember.utils import create_token_string
 from auth_remember.utils import preset_cookie
 

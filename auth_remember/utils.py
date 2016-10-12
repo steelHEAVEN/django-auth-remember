@@ -1,9 +1,9 @@
-import time
+# -*- coding: UTF-8 -*-
+from __future__ import unicode_literals
 import uuid
 from datetime import datetime, timedelta
 
 from django.conf import settings
-from django.utils.http import cookie_date
 
 from auth_remember.auth_utils import make_password
 from auth_remember.models import RememberToken
@@ -29,7 +29,7 @@ def create_token_string(user, token=None):
         token.created_initial = token.created
 
     token.save()
-    return '%d:%s' % (user.id, token_value)
+    return '%s:%s' % (user.id, token_value)
 
 
 def preset_cookie(request, token_string):

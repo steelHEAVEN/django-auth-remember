@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+from __future__ import unicode_literals
 from django.contrib import auth as django_auth
 from django.contrib.auth import signals
 from django.dispatch import receiver
